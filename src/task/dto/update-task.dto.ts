@@ -1,9 +1,9 @@
-import { IsString, IsOptional } from "class-validator";
-import { TaskStatus } from './../task.model';
+import { IsString, IsOptional, IsEnum } from "class-validator";
+import { TaskStatus } from './../task-status.enum';
 
 export class UpdateTaskDto {
     @IsString()
-    id: string;
+    id: number;
 
     @IsString()
     @IsOptional()
@@ -14,5 +14,6 @@ export class UpdateTaskDto {
     description: string;
     
     @IsOptional()
+    @IsEnum(TaskStatus)
     status: TaskStatus;
 }
