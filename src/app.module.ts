@@ -1,3 +1,4 @@
+import { AuthModule } from './auth/auth.module';
 import { TaskModule } from './task/task.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -5,6 +6,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
+    AuthModule, 
+    TaskModule,
     ConfigModule.forRoot({
       envFilePath: '.env',
       isGlobal: true,
@@ -23,7 +26,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       }),
       inject: [ConfigService]
     }),
-    TaskModule,
   ]
 })
 export class AppModule { }

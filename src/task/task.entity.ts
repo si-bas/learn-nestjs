@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { TaskStatus } from "./task-status.enum";
 
 @Entity({
@@ -17,9 +17,9 @@ export class Task extends BaseEntity {
     @Column()
     status: TaskStatus;
 
-    @Column()
+    @CreateDateColumn()
     created_at: Date;
 
-    @Column({ nullable: true })
+    @UpdateDateColumn()
     updated_at: Date;
 }

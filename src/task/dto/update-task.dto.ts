@@ -1,8 +1,8 @@
-import { IsString, IsOptional, IsEnum } from "class-validator";
+import { IsString, IsOptional, IsEnum, IsNumber } from "class-validator";
 import { TaskStatus } from './../task-status.enum';
 
 export class UpdateTaskDto {
-    @IsString()
+    @IsNumber()
     id: number;
 
     @IsString()
