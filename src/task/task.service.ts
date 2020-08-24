@@ -5,6 +5,8 @@ import { UpdateTaskDto } from './dto/update-task.dto';
 import { TaskRepository } from './task.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Task } from './task.entity';
+import { GetUser } from 'src/auth/get-user.decoartor';
+import { User } from 'src/auth/user.entity';
 
 @Injectable()
 export class TaskService {
@@ -55,5 +57,9 @@ export class TaskService {
 
     public async delete(id: number): Promise<void> {
         this.taskRepository.delete(id);
+    }
+
+    public test(@GetUser() user: User): User {
+        return user;
     }
 }
