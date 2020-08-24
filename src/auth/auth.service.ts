@@ -3,11 +3,13 @@ import { SignUpDto } from './dto/signup.dto';
 import { User } from './user.entity';
 import { UserRepository } from './user.repository';
 import { SignInDto } from './dto/signin.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
     constructor(
-        private readonly userRepository: UserRepository
+        private readonly userRepository: UserRepository,
+        private readonly jwtService: JwtService 
     ) {}
     
     public async createNewUser(signUpDto: SignUpDto): Promise<User> {
@@ -25,13 +27,16 @@ export class AuthService {
         return user;
     }
     
-    public async validateUserpassword(sigInDto: SignInDto): Promise<User> {
+    public async validateUserpassword(sigInDto: SignInDto): Promise<any> {
         const { username, password } = sigInDto;
         const user = await this.userRepository.findOne({ username });        
         
         if (!user || !user.validatePassword(password))
             throw new UnauthorizedException('Invalid credentials');
 
-        return user;
+        const payload = { username };
+        const accessToken = await this.jwtService.sign(payload);
+        
+        return { accessToken };
     }
 }
